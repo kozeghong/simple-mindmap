@@ -1,0 +1,15 @@
+.topic {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    background: #fafafa;
+    color: #333;
+
+    box-sizing: border-box;
+
+    font-size: 16px;
+}
