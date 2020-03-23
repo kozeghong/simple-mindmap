@@ -31,7 +31,7 @@ function draw (canvas: any, connections: IConection[]) {
       ctx.beginPath()
       ctx.moveTo(from.x, from.y)
       // ctx.lineTo(to.x, to.y)
-      ctx.bezierCurveTo(from.x + 60, from.y, to.x - 60, to.y, to.x, to.y)
+      ctx.bezierCurveTo(from.x + 30, from.y, to.x - 30, to.y, to.x, to.y)
       ctx.stroke()
     }
   }

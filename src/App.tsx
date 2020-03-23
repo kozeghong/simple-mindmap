@@ -8,87 +8,56 @@ import 'ace-builds/src-noconflict/theme-monokai'
 import styles from './App.module.css'
 import Board from './containers/Board'
 
-// const data = JSON.stringify({
-//   root: {
-//     title: 'Central Topic',
-//     children: [
-//       {
-//         title: 'Sub Topic 1',
-//         children: [
-//           {
-//             title: 'Topic 1',
-//           },
-//           {
-//             title: 'Topic 2',
-//           },
-//           {
-//             title: 'Topic 3',
-//           },
-//         ],
-//       },
-//       {
-//         title: 'Sub Topic 2',
-//       },
-//       {
-//         title: 'Sub Topic 3',
-//         children: [
-//           {
-//             title: 'Topic 1',
-//             children: [
-//               {
-//                 title: 'ABC',
-//               },
-//             ],
-//           },
-//           {
-//             title: 'Topic 2',
-//           },
-//           {
-//             title: 'Topic 3',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// })
-
 const data = `{
   "root": {
-    "title": "Central Topic",
+    "title": "Frontend Web Development",
     "children": [
       {
-        "title": "Sub Topic 1",
+        "title": "JavaScript",
         "children": [
           {
-            "title": "Topic 1"
+            "title": "TypeScript"
           },
           {
-            "title": "Topic 2"
-          },
-          {
-            "title": "Topic 3"
-          }
-        ]
-      },
-      {
-        "title": "Sub Topic 2"
-      },
-      {
-        "title": "Sub Topic 3",
-        "children": [
-          {
-            "title": "Topic 1",
+            "title": "React",
             "children": [
               {
-                "title": "ABC"
+                "title": "React Hooks"
               }
             ]
           },
           {
-            "title": "Topic 2"
+            "title": "Tools",
+            "children": [
+              {
+                "title": "Webpack"
+              },
+              {
+                "title": "ESLint"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "HTML",
+        "children": [
+          {
+            "title": "HTML 5"
+          }
+        ]
+      },
+      {
+        "title": "CSS",
+        "children": [
+          {
+            "title": "CSS 3"
           },
           {
-            "title": "Topic 3"
+            "title": "CSS Modules"
+          },
+          {
+            "title": "PostCSS"
           }
         ]
       }
