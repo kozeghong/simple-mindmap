@@ -7,48 +7,50 @@ interface IPoint {
   y: number
 }
 
+interface IConection {
+  from: IPoint
+  to: IPoint
+}
+
 interface IProps {
   containerWidth: number
   containerHeight: number
-  startPoint: IPoint
-  endPoint: IPoint
+  connections: IConection[]
 }
 
-function draw (canvas: any, startPoint: IPoint, endPoint: IPoint) {
+function draw (canvas: any, connections: IConection[]) {
   if (canvas.getContext) {
     const ctx = canvas.getContext('2d')
 
-    ctx.strokeStyle = '#ccc'
-    ctx.lineWidth = 2
-    ctx.lineJoin = 'round'
-    ctx.lineCap = 'round'
+    for (const { from, to } of connections) {
+      ctx.strokeStyle = '#ccc'
+      ctx.lineWidth = 2
+      ctx.lineJoin = 'round'
+      ctx.lineCap = 'round'
 
-    ctx.beginPath()
-    ctx.moveTo(startPoint.x, startPoint.y)
-    // ctx.lineTo(endPoint.x, endPoint.y)
-    ctx.bezierCurveTo(startPoint.x + 60, startPoint.y, endPoint.x - 60, endPoint.y, endPoint.x, endPoint.y)
-    ctx.stroke()
+      ctx.beginPath()
+      ctx.moveTo(from.x, from.y)
+      // ctx.lineTo(to.x, to.y)
+      ctx.bezierCurveTo(from.x + 60, from.y, to.x - 60, to.y, to.x, to.y)
+      ctx.stroke()
+    }
   }
 }
 
 const ConnectionLine: FC<IProps> = (props) => {
-  const { startPoint, endPoint, containerWidth, containerHeight } = props
+  const { connections, containerWidth, containerHeight } = props
   const canvasRef = useRef(null)
 
   useEffect(() => {
-    if (canvasRef.current && startPoint && endPoint) {
-      draw(canvasRef.current, startPoint, endPoint)
+    if (canvasRef.current && connections && connections.length > 0) {
+      draw(canvasRef.current, connections)
     }
-  }, [endPoint, startPoint])
+  }, [connections])
 
   return (
     <div
       className={styles.connectionLine}
       style={{ height: '100%', width: '100%' }}
-      start-x={startPoint.x}
-      start-y={startPoint.y}
-      end-x={endPoint.x}
-      end-y={endPoint.y}
     >
       <canvas
         style={{ height: '100%', width: '100%' }}

@@ -23,15 +23,13 @@ const TreeRoot: FC<IProps> = ({ rootNode }) => {
       <div className={styles.container} style={{ ...block }}>
         <Topic title={title} size={size} junction={junction} ></Topic>
 
-        {childNodes.length > 0 ? childNodes.map(node => (
+        {childNodes.length > 0 ? (
           <ConnectionLine
             containerHeight={block.height}
             containerWidth={block.width}
-            key={`connection-${node.id}`}
-            startPoint={node.connection.from}
-            endPoint={node.connection.to}
+            connections={childNodes.map(node => node.connection)}
           />
-        )) : null}
+        ) : null}
 
         {childNodes.length > 0 ? childNodes.map(node => (
           <TreeNode
