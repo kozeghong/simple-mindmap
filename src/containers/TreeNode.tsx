@@ -1,22 +1,55 @@
 import React, { FC } from 'react'
 
+import styles from './TreeNode.module.css'
+
 import Topic from '../components/Topic'
-import { INode } from '../layouts/types'
+import ConnectionLine from '../components/ConnectionLine'
+import { INode, IBlock, IPosition, IJunction, ISize } from '../layouts/types'
 
 interface IProps {
   childNodes?: INode[]
+  block: IBlock
+  position: IPosition
+  junction: IJunction
+  size: ISize
 }
 
-const TreeNode: FC<IProps> = ({ childNodes = [], children }) => {
+const TreeNode: FC<IProps> = (props) => {
+  const { childNodes = [], children, block, position } = props
+
   return (
-    <div>
-      {children}
-      <div>
+    <div className={styles.node} style={{ ...block, top: position.y, left: position.x }}>
+      <div className={styles.container} style={{ ...block }}>
+
+        {children}
+
         {childNodes.length > 0 ? childNodes.map(node => (
-          <TreeNode key={node.id} childNodes={node.children}>
-            <Topic title={node.title}></Topic>
+          <ConnectionLine
+            containerHeight={block.height}
+            containerWidth={block.width}
+            key={`connection-${node.id}`}
+            startPoint={node.connection.from}
+            endPoint={node.connection.to}
+          />
+        )) : null}
+
+        {childNodes.length > 0 ? childNodes.map(node => (
+          <TreeNode
+            key={node.id}
+            childNodes={node.children}
+            block={node.block}
+            position={node.position}
+            junction={node.junction}
+            size={node.size}
+          >
+            <Topic
+              title={node.title}
+              junction={node.junction}
+              size={node.size}
+            />
           </TreeNode>
         )) : null}
+
       </div>
     </div>
   )

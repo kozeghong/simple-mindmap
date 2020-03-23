@@ -1,0 +1,9 @@
+.connectionLine {
+  position: absolute;
+
+  z-index: 99;
+
+  & > canvas {
+    position: absolute;
+  }
+}

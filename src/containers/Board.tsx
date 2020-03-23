@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
 import TreeRoot from './TreeRoot'
+import styles from './Board.module.css'
 
+import { generateMindMapData } from '../layouts'
 import { IMindMap } from '../layouts/types'
 
 interface IProps {
@@ -15,13 +17,15 @@ const Board: FC<IProps> = (props) => {
     return null
   }
 
-  const data: IMindMap = JSON.parse(source)
+  const data: IMindMap = generateMindMapData(source)
 
   const { root } = data
 
   return (
-    <div>
-      <TreeRoot rootNode={root} />
+    <div className={styles.boardContainer}>
+      <div className={styles.board}>
+        <TreeRoot rootNode={root} />
+      </div>
     </div>
   )
 }

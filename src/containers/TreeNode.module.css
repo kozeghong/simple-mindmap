@@ -1,0 +1,10 @@
+.node {
+  position: absolute;
+  z-index: 999;
+
+  /* border: 1px solid #ccc; */
+
+  & > .container {
+    position: relative;
+  }
+}

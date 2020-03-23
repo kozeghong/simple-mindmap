@@ -1,0 +1,16 @@
+.boardContainer {
+  position: relative;
+  overflow: auto;
+
+  width: 100%;
+  height: 100%;
+
+  & > .board {
+    position: relative;
+    overflow: auto;
+    background: #fafafa;
+
+    min-width: 100%;
+    min-height: 100%;
+  }
+}

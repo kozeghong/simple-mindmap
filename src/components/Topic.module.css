@@ -1,11 +1,13 @@
 .topic {
+    position: absolute;
+
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
 
     border: 2px solid #ccc;
-    border-radius: 3px;
+    border-radius: 8px;
     background: #fafafa;
     color: #333;
 

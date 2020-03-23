@@ -9,10 +9,10 @@
   & > .main {
     flex-shrink: 0;
     flex-grow: 1;
-    width: 70%;
+    width: 65%;
   }
 
   & > .sidebar {
-    width: 30%;
+    width: 35%;
   }
 }
