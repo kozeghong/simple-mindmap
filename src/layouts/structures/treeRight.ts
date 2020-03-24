@@ -8,12 +8,12 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
   const nodeHeight = node.size?.height || 0
 
   if (node.children === undefined || node.children.length === 0) {
-    node.block = {
+    node.blockSize = {
       width: nodeWidth + marginRight,
       height: nodeHeight,
     }
 
-    node.junction = {
+    node.position = {
       x: 0,
       y: 0,
     }
@@ -27,10 +27,10 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     node.children.forEach(child => {
       calcBlockSizeAndChildPosition(child)
 
-      const childBlockWidth = child.block?.width || 0
-      const childBlockHeight = child.block?.height || 0
+      const childBlockWidth = child.blockSize?.width || 0
+      const childBlockHeight = child.blockSize?.height || 0
 
-      child.position = {
+      child.blockPosition = {
         x: left,
         y: top,
       }
@@ -44,12 +44,12 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     sumWidth += nodeWidth + marginRight
     sumHeight += marginBottom * (node.children.length - 1)
 
-    node.block = {
+    node.blockSize = {
       width: sumWidth,
       height: sumHeight,
     }
 
-    node.junction = {
+    node.position = {
       x: 0,
       y: (sumHeight - nodeHeight) / 2,
     }
@@ -57,12 +57,12 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     node.children.forEach(child => {
       child.connection = {
         from: {
-          x: (node.junction?.x || 0) + nodeWidth,
-          y: (node.junction?.y || 0) + nodeHeight / 2,
+          x: (node.position?.x || 0) + nodeWidth,
+          y: (node.position?.y || 0) + nodeHeight / 2,
         },
         to: {
-          x: (child.position?.x || 0) + (child.junction?.x || 0),
-          y: (child.position?.y || 0) + (child.junction?.y || 0) + (child.size?.height || 0) / 2,
+          x: (child.position?.x || 0),
+          y: (child.position?.y || 0) + (child.size?.height || 0) / 2,
         },
       }
     })

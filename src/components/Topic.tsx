@@ -2,18 +2,18 @@ import React, { FC } from 'react'
 
 import styles from './Topic.module.css'
 
-import { ISize, IJunction } from '../layouts/types'
+import { ISize, IPosition } from '../layouts/types'
 
 interface IProps {
   title: string
   size?: ISize
-  junction?: IJunction
+  position?: IPosition
 }
 
 const Topic: FC<IProps> = (props) => {
-  const { title, size, junction } = props
+  const { title, size, position } = props
   const { width = 0, height = 0 } = size || {}
-  const { x = 0, y = 0 } = junction || {}
+  const { x = 0, y = 0 } = position || {}
 
   return (
     <div

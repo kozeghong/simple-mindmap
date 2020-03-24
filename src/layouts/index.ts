@@ -1,7 +1,8 @@
-import { IMindMap, IPartialNode, ISource, ISourceNode } from './types'
+import { IMindMap, IPartialNode, ISource, ISourceNode, IConnection, INode } from './types'
 import { getTopicSize } from './shapes'
+import { convertRelativeToAbsolutePosition } from './position'
 
-import { calcBlockSizeAndChildPosition } from './structures/treeLeft'
+import { calcBlockSizeAndChildPosition } from './structures/treeRight'
 
 let id = 0
 function generateUniqueId () {
@@ -17,14 +18,33 @@ export function traverseNode (node: ISourceNode): IPartialNode {
   }
 }
 
+export function collectConnectionLines (root: IPartialNode): IConnection[] {
+  const connections: IConnection[] = []
+
+  function traverseNode (node: IPartialNode) {
+    if (node.connection) {
+      connections.push(node.connection)
+    }
+    node.children && node.children.forEach(child => traverseNode(child))
+  }
+
+  traverseNode(root)
+
+  return connections
+}
+
 export function generateMindMapData (source: string): IMindMap {
   const sourceData: ISource = JSON.parse(source || '{}')
 
-  const mindmap = {
-    root: traverseNode(sourceData.root),
+  const mindmap: IMindMap = {
+    root: traverseNode(sourceData.root) as INode,
   }
 
   calcBlockSizeAndChildPosition(mindmap.root)
 
-  return mindmap as IMindMap
+  convertRelativeToAbsolutePosition(mindmap.root)
+
+  mindmap.connections = collectConnectionLines(mindmap.root)
+
+  return mindmap
 }

@@ -1,55 +1,48 @@
 import React, { FC } from 'react'
 
-import styles from './TreeNode.module.css'
+// import styles from './TreeNode.module.css'
 
 import Topic from '../components/Topic'
-import ConnectionLine from '../components/ConnectionLine'
-import { INode, IBlock, IPosition, IJunction, ISize } from '../layouts/types'
+import { INode, IBlockSize, IBlockPosition, IPosition, ISize } from '../layouts/types'
 
 interface IProps {
   childNodes?: INode[]
-  block: IBlock
+  blockSize: IBlockSize
+  blockPosition: IBlockPosition
   position: IPosition
-  junction: IJunction
   size: ISize
 }
 
 const TreeNode: FC<IProps> = (props) => {
-  const { childNodes = [], children, block, position } = props
+  // const { childNodes = [], children, blockSize, blockPosition } = props
+  const { childNodes = [], children } = props
 
   return (
-    <div className={styles.node} style={{ ...block, top: position.y, left: position.x }}>
-      <div className={styles.container} style={{ ...block }}>
+    <>
+      {/* <div className={styles.node} style={{ ...blockSize, top: blockPosition.y, left: blockPosition.x }}> */}
+      {/* <div className={styles.container} style={{ ...blockSize }}> */}
+      {children}
 
-        {children}
-
-        {childNodes.length > 0 ? (
-          <ConnectionLine
-            containerHeight={block.height}
-            containerWidth={block.width}
-            connections={childNodes.map(node => node.connection)}
-          />
-        ) : null}
-
-        {childNodes.length > 0 ? childNodes.map(node => (
-          <TreeNode
-            key={node.id}
-            childNodes={node.children}
-            block={node.block}
+      {childNodes.length > 0 ? childNodes.map(node => (
+        <TreeNode
+          key={node.id}
+          childNodes={node.children}
+          blockSize={node.blockSize}
+          blockPosition={node.blockPosition}
+          position={node.position}
+          size={node.size}
+        >
+          <Topic
+            title={node.title}
             position={node.position}
-            junction={node.junction}
             size={node.size}
-          >
-            <Topic
-              title={node.title}
-              junction={node.junction}
-              size={node.size}
-            />
-          </TreeNode>
-        )) : null}
+          />
+        </TreeNode>
+      )) : null}
 
-      </div>
-    </div>
+      {/* </div> */}
+      {/* </div> */}
+    </>
   )
 }
 

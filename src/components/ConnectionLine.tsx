@@ -48,17 +48,12 @@ const ConnectionLine: FC<IProps> = (props) => {
   }, [connections])
 
   return (
-    <div
+    <canvas
       className={styles.connectionLine}
-      style={{ height: '100%', width: '100%' }}
-    >
-      <canvas
-        style={{ height: '100%', width: '100%' }}
-        width={containerWidth}
-        height={containerHeight}
-        ref={canvasRef}
-      ></canvas>
-    </div>
+      width={containerWidth}
+      height={containerHeight}
+      ref={canvasRef}
+    ></canvas>
   )
 }
 

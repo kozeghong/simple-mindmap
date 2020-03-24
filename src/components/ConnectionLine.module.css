@@ -1,7 +1,3 @@
 .connectionLine {
   position: absolute;
-
-  & > canvas {
-    position: absolute;
-  }
 }

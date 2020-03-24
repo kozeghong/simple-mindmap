@@ -17,17 +17,17 @@ export interface ISize {
   height: number
 }
 
-export interface IBlock {
+export interface IBlockSize {
   width: number
   height: number
 }
 
-export interface IPosition {
+export interface IBlockPosition {
   x: number
   y: number
 }
 
-export interface IJunction {
+export interface IPosition {
   x: number
   y: number
 }
@@ -41,9 +41,9 @@ export interface INode {
   id: string
   title: string
   size: ISize
-  block: IBlock
+  blockSize: IBlockSize
+  blockPosition: IBlockPosition
   position: IPosition
-  junction: IJunction
   connection: IConnection
   children?: INode[]
 }
@@ -52,13 +52,14 @@ export interface IPartialNode {
   id: string
   title: string
   size?: ISize
-  block?: IBlock
+  blockSize?: IBlockSize
+  blockPosition?: IBlockPosition
   position?: IPosition
-  junction?: IJunction
   connection?: IConnection
   children?: IPartialNode[]
 }
 
 export interface IMindMap {
   root: INode
+  connections?: IConnection[]
 }

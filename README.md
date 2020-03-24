@@ -1,6 +1,6 @@
 # simple-mindmap
 
-A very simple version of mindmap, based on React. Still a work in progress.
+A very simple rendering engine for mind map, based on React. Still a work in progress.
 
 <img src="preview.png" alt="Preview">
 
