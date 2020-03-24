@@ -1,7 +1,7 @@
 import { IMindMap, IPartialNode, ISource, ISourceNode } from './types'
 import { getTopicSize } from './shapes'
 
-import { calcBlockSizeAndChildPosition } from './structures/treeRight'
+import { calcBlockSizeAndChildPosition } from './structures/treeLeft'
 
 let id = 0
 function generateUniqueId () {
