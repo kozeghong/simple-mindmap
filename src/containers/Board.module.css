@@ -12,5 +12,10 @@
 
     min-width: 100%;
     min-height: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
   }
 }

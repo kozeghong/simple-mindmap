@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import TreeRoot from './TreeRoot'
 import styles from './Board.module.css'
@@ -9,32 +9,38 @@ import { IMindMap } from '../layouts/types'
 
 interface IProps {
   source?: string
+  structure: string
 }
 
 const Board: FC<IProps> = (props) => {
-  const { source } = props
+  const { source, structure } = props
 
-  if (source === undefined) {
+  const data: IMindMap | null = useMemo(() => source ? generateMindMapData(source, structure) : null, [source, structure])
+
+  if (source === undefined || data === null) {
     return null
   }
 
-  const data: IMindMap = generateMindMapData(source)
-
   const { root, connections } = data
-
-  console.log(connections)
 
   return (
     <div className={styles.boardContainer}>
       <div className={styles.board}>
-        { connections ? (
-          <ConnectionLine
-            containerHeight={root.blockSize.height}
-            containerWidth={root.blockSize.width}
-            connections={connections}
-          />
-        ) : null}
-        <TreeRoot rootNode={root} />
+        <div style={{
+          position: 'relative',
+          height: root.blockSize.height,
+          width: root.blockSize.width,
+          margin: 18,
+        }}>
+          { connections ? (
+            <ConnectionLine
+              containerHeight={root.blockSize.height}
+              containerWidth={root.blockSize.width}
+              connections={connections}
+            />
+          ) : null}
+          <TreeRoot rootNode={root} />
+        </div>
       </div>
     </div>
   )

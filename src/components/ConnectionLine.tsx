@@ -14,6 +14,8 @@ function draw (canvas: any, connections: IConnection[]) {
   if (canvas.getContext) {
     const ctx = canvas.getContext('2d')
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
     for (const { from, to, direction } of connections) {
       ctx.strokeStyle = '#ccc'
       ctx.lineWidth = 2

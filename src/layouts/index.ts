@@ -2,7 +2,7 @@ import { IMindMap, IPartialNode, ISource, ISourceNode, IConnection, INode } from
 import { getTopicSize } from './shapes'
 import { convertRelativeToAbsolutePosition } from './position'
 
-import { treeBalance } from './structures'
+import { structureMap } from './structures'
 
 let id = 0
 function generateUniqueId () {
@@ -33,14 +33,14 @@ export function collectConnectionLines (root: IPartialNode): IConnection[] {
   return connections
 }
 
-export function generateMindMapData (source: string): IMindMap {
+export function generateMindMapData (source: string, structure: string): IMindMap {
   const sourceData: ISource = JSON.parse(source || '{}')
 
   const mindmap: IMindMap = {
     root: traverseNode(sourceData.root) as INode,
   }
 
-  treeBalance.generateBlockContext(mindmap.root)
+  structureMap[structure].generateBlockContext(mindmap.root)
 
   convertRelativeToAbsolutePosition(mindmap.root)
 
