@@ -15,6 +15,7 @@ export function convertRelativeToAbsolutePosition (node: IPartialNode, parentPos
   }
 
   node.connection = {
+    direction: node.connection?.direction || 'right',
     from: {
       x: parentX + (node.connection?.from.x || 0),
       y: parentY + (node.connection?.from.y || 0),
@@ -24,8 +25,6 @@ export function convertRelativeToAbsolutePosition (node: IPartialNode, parentPos
       y: node.blockPosition.y + (node.connection?.to.y || 0),
     },
   }
-
-  console.log(node.position.x, node.size?.width, node.connection.to.x)
 
   node.children && node.children.forEach(child => convertRelativeToAbsolutePosition(child, node.blockPosition))
 }

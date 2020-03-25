@@ -2,27 +2,19 @@ import React, { FC, useRef, useEffect } from 'react'
 
 import styles from './ConnectionLine.module.css'
 
-interface IPoint {
-  x: number
-  y: number
-}
-
-interface IConection {
-  from: IPoint
-  to: IPoint
-}
+import { IConnection } from '../layouts/types'
 
 interface IProps {
   containerWidth: number
   containerHeight: number
-  connections: IConection[]
+  connections: IConnection[]
 }
 
-function draw (canvas: any, connections: IConection[]) {
+function draw (canvas: any, connections: IConnection[]) {
   if (canvas.getContext) {
     const ctx = canvas.getContext('2d')
 
-    for (const { from, to } of connections) {
+    for (const { from, to, direction } of connections) {
       ctx.strokeStyle = '#ccc'
       ctx.lineWidth = 2
       ctx.lineJoin = 'round'
@@ -31,7 +23,13 @@ function draw (canvas: any, connections: IConection[]) {
       ctx.beginPath()
       ctx.moveTo(from.x, from.y)
       // ctx.lineTo(to.x, to.y)
-      ctx.bezierCurveTo(from.x + 30, from.y, to.x - 30, to.y, to.x, to.y)
+
+      if (direction === 'left') {
+        ctx.bezierCurveTo(from.x - 30, from.y, to.x + 30, to.y, to.x, to.y)
+      } else if (direction === 'right') {
+        ctx.bezierCurveTo(from.x + 30, from.y, to.x - 30, to.y, to.x, to.y)
+      }
+
       ctx.stroke()
     }
   }

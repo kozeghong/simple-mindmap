@@ -1,9 +1,15 @@
-import { IPartialNode } from '../types'
+import { structureMap } from './'
+import { IStructure } from './base'
+import { IPartialNode, IDirection } from '../types'
 
 const marginBottom = 20
 const marginLeft = 60
 
-export function calcBlockSizeAndChildPosition (node: IPartialNode) {
+const structureName = 'tree-left'
+
+const direction: IDirection = 'left'
+
+function generateBlockContext (node: IPartialNode) {
   const nodeWidth = node.size?.width || 0
   const nodeHeight = node.size?.height || 0
 
@@ -22,7 +28,11 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     let sumHeight = 0
 
     node.children.forEach(child => {
-      calcBlockSizeAndChildPosition(child)
+      if (node.structure && structureMap[node.structure]) {
+        structureMap[node.structure].generateBlockContext(child)
+      } else {
+        generateBlockContext(child)
+      }
 
       const childBlockWidth = child.blockSize?.width || 0
       const childBlockHeight = child.blockSize?.height || 0
@@ -32,7 +42,9 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     })
 
     sumWidth += marginLeft + nodeWidth
+
     sumHeight += marginBottom * (node.children.length - 1)
+    sumHeight = sumHeight < nodeHeight ? nodeHeight : sumHeight
 
     node.blockSize = {
       width: sumWidth,
@@ -59,6 +71,7 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
       top += childBlockHeight + marginBottom
 
       child.connection = {
+        direction,
         from: {
           x: (node.position?.x || 0),
           y: (node.position?.y || 0) + nodeHeight / 2,
@@ -71,3 +84,10 @@ export function calcBlockSizeAndChildPosition (node: IPartialNode) {
     })
   }
 }
+
+const treeLeft: IStructure = {
+  structureName,
+  generateBlockContext,
+}
+
+export default treeLeft

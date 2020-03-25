@@ -33,6 +33,7 @@ export interface IPosition {
 }
 
 export interface IConnection {
+  direction: IDirection
   from: IPoint
   to: IPoint
 }
@@ -46,6 +47,7 @@ export interface INode {
   position: IPosition
   connection: IConnection
   children?: INode[]
+  structure?: string
 }
 
 export interface IPartialNode {
@@ -57,9 +59,12 @@ export interface IPartialNode {
   position?: IPosition
   connection?: IConnection
   children?: IPartialNode[]
+  structure?: string
 }
 
 export interface IMindMap {
   root: INode
   connections?: IConnection[]
 }
+
+export type IDirection = 'up' | 'right' | 'down' | 'left'

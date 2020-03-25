@@ -2,7 +2,7 @@ import { IMindMap, IPartialNode, ISource, ISourceNode, IConnection, INode } from
 import { getTopicSize } from './shapes'
 import { convertRelativeToAbsolutePosition } from './position'
 
-import { calcBlockSizeAndChildPosition } from './structures/treeRight'
+import { treeBalance } from './structures'
 
 let id = 0
 function generateUniqueId () {
@@ -40,7 +40,7 @@ export function generateMindMapData (source: string): IMindMap {
     root: traverseNode(sourceData.root) as INode,
   }
 
-  calcBlockSizeAndChildPosition(mindmap.root)
+  treeBalance.generateBlockContext(mindmap.root)
 
   convertRelativeToAbsolutePosition(mindmap.root)
 
