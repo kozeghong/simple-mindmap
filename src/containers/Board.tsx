@@ -19,8 +19,8 @@ const VIEW_BLOCK = false
 const Board: FC<IProps> = (props) => {
   const { source, structure, connectionType } = props
   const [scale, setScale] = useState(100)
-  const zoomIn = () => setScale(scale => scale + 10)
-  const zoomOut = () => setScale(scale => scale - 10)
+  const zoomIn = () => setScale(scale => scale <= 190 ? scale + 10 : scale)
+  const zoomOut = () => setScale(scale => scale > 10 ? scale - 10 : scale)
 
   const data: IMindMap | null = useMemo(() => {
     try {
@@ -44,10 +44,12 @@ const Board: FC<IProps> = (props) => {
       <div className={styles.board}>
         <div style={{
           position: 'relative',
-          height: rootBlockHeight * scale * 0.01,
-          width: rootBlockWidth * scale * 0.01,
+          height: rootBlockHeight,
+          width: rootBlockWidth,
           margin: 18,
+          transition: 'transform 0.1s',
           transform: `scale(${scale * 0.01})`,
+          transformOrigin: 'top left',
         }}>
 
           {VIEW_BLOCK ? (
@@ -70,12 +72,12 @@ const Board: FC<IProps> = (props) => {
           <TreeRoot rootNode={root} />
 
         </div>
-        <div className={styles.zoom}>
-          <span className={styles.label}>Zoom</span>
-          <span className={styles.button} onClick={zoomOut}>-</span>
-          <span className={styles.scale}>{scale} %</span>
-          <span className={styles.button} onClick={zoomIn}>+</span>
-        </div>
+      </div>
+
+      <div className={styles.zoom}>
+        <button onClick={zoomOut}>-</button>
+        <span className={styles.scale}>{scale} %</span>
+        <button onClick={zoomIn}>+</button>
       </div>
     </div>
   )

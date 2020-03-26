@@ -61,8 +61,6 @@ function generateBlockContext (node: IPartialNode) {
     }
     middleIndex++
 
-    console.log(middleIndex, rightSideTreeHeight, avgHeight, allRightHeight, nodeChildren[middleIndex].blockSize?.height)
-
     const rightSumBlockSize = generateChildBlockSize(nodeChildren.slice(0, middleIndex), STRUCTURES.TREE_RIGHT)
     const leftSumBlockSize = generateChildBlockSize(nodeChildren.slice(middleIndex), STRUCTURES.TREE_LEFT)
 

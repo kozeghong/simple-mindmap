@@ -18,45 +18,44 @@
     align-items: center;
     justify-content: center;
 
-    & > .zoom {
-      position: absolute;
-      right: 28px;
-      bottom: 28px;
-      z-index: 9999;
+  }
 
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 5px;
+  & > .zoom {
+    position: fixed;
+    left: 28px;
+    bottom: 28px;
+    z-index: 9999;
 
-      padding: 8px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
 
+    padding: 8px;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    
+    & > button {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
+      justify-content: center;
 
-      & > .label {
-        margin: 0 8px;
-      }
-      
-      & > .button {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: center;
+      margin: 0 8px;
+      background: #333;
+      border: none;
+      color: #fff;
+      border-radius: 3px;
+      height: 18px;
+      width: 18px;
+      cursor: pointer;
+    }
 
-        margin: 0 8px;
-        background: #333;
-        color: #fff;
-        border-radius: 3px;
-        padding: 3px;
-        height: 18px;
-        width: 18px;
-      }
-
-      & > .scale {
-        margin: 0 8px;
-        
-      }
+    & > .scale {
+      margin: 0 8px;
+      width: 50px;
+      text-align: center;
     }
   }
 }
