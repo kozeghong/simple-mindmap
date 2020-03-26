@@ -9,6 +9,7 @@ import styles from './App.module.css'
 import Board from './containers/Board'
 
 import { STRUCTURES } from './layouts/structures/index'
+import { IConnectionType } from './layouts/types'
 
 const data = `{
   "root": {
@@ -70,36 +71,53 @@ const data = `{
 function App () {
   const [mindMapData, setMindMapData] = useState(data)
   const [code, setCode] = useState(data)
-  const [structure, setStructure] = useState(STRUCTURES.TREE_BALANCE)
+  const [structure, setStructure] = useState(STRUCTURES.TREE_RIGHT)
+  const [connectionType, setConnectionType] = useState(IConnectionType.CURVE)
 
   return (
     <div className={styles.app}>
       <div className={styles.main}>
-        <Board source={mindMapData} structure={structure} />
+        <Board source={mindMapData} structure={structure} connectionType={connectionType} />
       </div>
       <div className={styles.sidebar}>
-        {/* <textarea rows={3} value={mindMapData} onChange={(e) => setMindMapData(e.target.value)} /> */}
-        <div style={{ height: '5%', textAlign: 'center', padding: 5, boxSizing: 'border-box' }}>
-          <button style={{ fontSize: 24 }} onClick={() => setMindMapData(code)}>APPLY</button>
+        <div className={styles.controlPanel}>
 
-          <select style={{ fontSize: 24 }} value={structure} onChange={(e) => setStructure(e.target.value)}>
+          <button onClick={() => setMindMapData(code)}>Apply JSON</button>
+
+          <select
+            value={structure}
+            onChange={(e) => setStructure(e.target.value)}
+          >
             <option value={STRUCTURES.TREE_BALANCE}>TREE BALANCE</option>
             <option value={STRUCTURES.TREE_LEFT}>TREE LEFT</option>
             <option value={STRUCTURES.TREE_RIGHT}>TREE RIGHT</option>
           </select>
 
+          <select
+            value={connectionType}
+            onChange={(e) => setConnectionType(e.target.value as IConnectionType)}
+          >
+            <option value={IConnectionType.CURVE}>curve</option>
+            <option value={IConnectionType.STRAIGHT}>Straight Line</option>
+            <option value={IConnectionType.POLYLINE}>Polyline</option>
+          </select>
+
         </div>
-        <AceEditor
-          mode='json'
-          theme='monokai'
-          fontSize={16}
-          value={code}
-          onChange={setCode}
-          name='UNIQUE_ID_OF_DIV'
-          editorProps={{ $blockScrolling: true }}
-          width='100%'
-          height='95%'
-        />
+
+        <div className={styles.codeEditor}>
+          <AceEditor
+            mode='json'
+            theme='monokai'
+            fontSize={16}
+            value={code}
+            onChange={setCode}
+            name='UNIQUE_ID_OF_DIV'
+            editorProps={{ $blockScrolling: true }}
+            width='100%'
+            height='100%'
+          />
+        </div>
+
       </div>
     </div>
   )

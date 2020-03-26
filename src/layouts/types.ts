@@ -68,3 +68,9 @@ export interface IMindMap {
 }
 
 export type IDirection = 'up' | 'right' | 'down' | 'left'
+
+export enum IConnectionType {
+  STRAIGHT = 'STRAIGHT',
+  CURVE = 'CURVE',
+  POLYLINE = 'POLYLINE'
+}

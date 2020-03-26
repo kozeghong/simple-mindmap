@@ -30,7 +30,8 @@ export function collectConnectionLines (root: IPartialNode): IConnection[] {
 
   traverseNode(root)
 
-  return connections
+  /** .slice(1) to throw away the root.connection  */
+  return connections.slice(1)
 }
 
 export function generateMindMapData (source: string, structure: string): IMindMap {

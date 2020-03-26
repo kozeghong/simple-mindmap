@@ -9,10 +9,34 @@
   & > .main {
     flex-shrink: 0;
     flex-grow: 1;
-    width: 65%;
+    width: 70%;
   }
 
   & > .sidebar {
-    width: 35%;
+    width: 30%;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+
+    & > .controlPanel {
+      box-sizing: border-box;
+      height: 64px;
+      padding: 18px;
+
+      & > select {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+
+      & > button {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+    }
+
+    & > .codeEditor {
+      flex-grow: 1;
+    }
   }
 }
