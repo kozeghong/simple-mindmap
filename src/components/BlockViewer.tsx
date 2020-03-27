@@ -8,10 +8,10 @@ interface IProps {
   root: INode
 }
 
-function draw (canvas: any, nodes: INode[]) {
-  if (canvas.getContext) {
-    const ctx = canvas.getContext('2d')
+function draw (canvas: HTMLCanvasElement, nodes: INode[]) {
+  const ctx = canvas.getContext('2d')
 
+  if (ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.strokeStyle = '#000099'
@@ -32,7 +32,7 @@ const collectNodes = (node: INode, collection: INode[]) => {
 
 const ConnectionLine: FC<IProps> = (props) => {
   const { root, containerWidth, containerHeight } = props
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     if (canvasRef.current && root) {

@@ -11,7 +11,7 @@ interface IProps {
   connectionType: IConnectionType
 }
 
-const drawPolyline = (ctx: any, connection: IConnection) => {
+const drawPolyline = (ctx: CanvasRenderingContext2D, connection: IConnection) => {
   const { from, to, direction } = connection
 
   ctx.beginPath()
@@ -29,7 +29,7 @@ const drawPolyline = (ctx: any, connection: IConnection) => {
   ctx.stroke()
 }
 
-const drawStraight = (ctx: any, connection: IConnection) => {
+const drawStraight = (ctx: CanvasRenderingContext2D, connection: IConnection) => {
   const { from, to } = connection
 
   ctx.beginPath()
@@ -38,7 +38,7 @@ const drawStraight = (ctx: any, connection: IConnection) => {
   ctx.stroke()
 }
 
-const drawCurve = (ctx: any, connection: IConnection) => {
+const drawCurve = (ctx: CanvasRenderingContext2D, connection: IConnection) => {
   const { from, to, direction } = connection
 
   ctx.beginPath()
@@ -52,10 +52,10 @@ const drawCurve = (ctx: any, connection: IConnection) => {
   ctx.stroke()
 }
 
-function draw (canvas: any, connections: IConnection[], connectionType: IConnectionType) {
-  if (canvas.getContext) {
-    const ctx = canvas.getContext('2d')
+function draw (canvas: HTMLCanvasElement, connections: IConnection[], connectionType: IConnectionType) {
+  const ctx = canvas.getContext('2d')
 
+  if (ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.strokeStyle = '#ccc'
@@ -77,7 +77,7 @@ function draw (canvas: any, connections: IConnection[], connectionType: IConnect
 
 const ConnectionLine: FC<IProps> = (props) => {
   const { connections, containerWidth, containerHeight, connectionType } = props
-  const canvasRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     if (canvasRef.current && connections && connections.length > 0) {
