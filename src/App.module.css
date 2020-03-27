@@ -21,17 +21,21 @@
 
     & > .controlPanel {
       box-sizing: border-box;
-      height: 64px;
-      padding: 18px;
+      padding: 8px 0 0 8px;
+
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: flex-start;
 
       & > select {
         font-size: 20px;
-        margin-right: 8px;
+        margin: 0 8px 8px 0;
       }
 
       & > button {
         font-size: 20px;
-        margin-right: 8px;
+        margin: 0 8px 8px 0;
       }
     }
 

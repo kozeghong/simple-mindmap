@@ -11,67 +11,12 @@ import Board from './containers/Board'
 import { STRUCTURES } from './layouts/structures/index'
 import { IConnectionType } from './layouts/types'
 
-const data = `{
-  "root": {
-    "title": "Frontend Web Development",
-    "children": [
-      {
-        "title": "JavaScript",
-        "children": [
-          {
-            "title": "TypeScript"
-          },
-          {
-            "title": "React",
-            "children": [
-              {
-                "title": "React Hooks"
-              }
-            ]
-          },
-          {
-            "title": "Tools",
-            "children": [
-              {
-                "title": "Webpack"
-              },
-              {
-                "title": "ESLint"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "title": "HTML",
-        "children": [
-          {
-            "title": "HTML 5"
-          }
-        ]
-      },
-      {
-        "title": "CSS",
-        "children": [
-          {
-            "title": "CSS 3"
-          },
-          {
-            "title": "CSS Modules"
-          },
-          {
-            "title": "PostCSS"
-          }
-        ]
-      }
-    ]
-  }
-}`
+import presetData from './presetData'
 
 function App () {
-  const [mindMapData, setMindMapData] = useState(data)
-  const [code, setCode] = useState(data)
-  const [structure, setStructure] = useState(STRUCTURES.TREE_RIGHT)
+  const [mindMapData, setMindMapData] = useState(presetData[0])
+  const [code, setCode] = useState(presetData[0])
+  const [structure, setStructure] = useState(STRUCTURES.TREE_BALANCE)
   const [connectionType, setConnectionType] = useState(IConnectionType.CURVE)
 
   return (
@@ -81,6 +26,14 @@ function App () {
       </div>
       <div className={styles.sidebar}>
         <div className={styles.controlPanel}>
+
+          <select
+            onChange={(e) => setCode(presetData[parseInt(e.target.value, 10) || 0])}
+          >
+            <option value={0}>0</option>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+          </select>
 
           <button onClick={() => setMindMapData(code)}>Apply JSON</button>
 
@@ -97,8 +50,8 @@ function App () {
             value={connectionType}
             onChange={(e) => setConnectionType(e.target.value as IConnectionType)}
           >
-            <option value={IConnectionType.CURVE}>curve</option>
-            <option value={IConnectionType.STRAIGHT}>Straight Line</option>
+            <option value={IConnectionType.CURVE}>Curve</option>
+            <option value={IConnectionType.STRAIGHT}>Straight</option>
             <option value={IConnectionType.POLYLINE}>Polyline</option>
           </select>
 
