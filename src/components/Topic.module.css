@@ -1,19 +1,36 @@
 .topic {
-    position: absolute;
+  position: absolute;
 
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
 
+  box-sizing: border-box;
+  
+  border-radius: 8px;
+  background: #fafafa;
+  color: #333;
+  font-size: 16px;
+
+  z-index: 999;
+
+  &.central {
+    border: 2px solid #009900;
+    background: #009900;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  &.main {
+    border: 2px solid #e7e7e7;
+    background: #e7e7e7;
+    color: #333;
+  }
+
+  &.sub {
     border: 2px solid #ccc;
-    border-radius: 8px;
     background: #fafafa;
     color: #333;
-
-    box-sizing: border-box;
-
-    font-size: 16px;
-
-    z-index: 999;
+  }
 }
