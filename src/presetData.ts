@@ -96,31 +96,89 @@ const food = {
     title: 'Foods',
     children: [
       {
-        title: 'Chinese Cuisine',
+        title: 'East Asian Cuisine',
         children: [
           {
-            title: '徽菜',
+            title: 'Chinese Cuisine',
+            children: [
+              {
+                title: '徽菜',
+              },
+              {
+                title: '粤菜',
+              },
+              {
+                title: '闽菜',
+              },
+              {
+                title: '湘菜',
+              },
+              {
+                title: '苏菜',
+              },
+              {
+                title: '鲁菜',
+              },
+              {
+                title: '川菜',
+              },
+              {
+                title: '浙菜',
+              },
+            ],
           },
           {
-            title: '粤菜',
+            title: 'Japanese Cuisine',
           },
           {
-            title: '闽菜',
+            title: 'Korean Cuisine',
+          },
+        ],
+      },
+      {
+        title: 'West Asian Cuisine',
+        children: [
+          {
+            title: 'Arab Cuisine of the Persian Gulf',
           },
           {
-            title: '湘菜',
+            title: 'Assyrian Cuisine',
           },
           {
-            title: '苏菜',
+            title: 'Bahraini Cuisine',
           },
           {
-            title: '鲁菜',
+            title: 'Cypriot Cuisine',
           },
           {
-            title: '川菜',
+            title: 'Emirati Cuisine',
           },
           {
-            title: '浙菜',
+            title: 'Iranian Cuisine',
+          },
+          {
+            title: 'Iraqi Cuisine',
+          },
+          {
+            title: 'Kuwaiti Cuisine',
+          },
+          {
+            title: 'Omani Cuisine ',
+          },
+          {
+            title: 'Qatari Cuisine',
+          },
+          {
+            title: 'Saudi Arabian Cuisine',
+          },
+          {
+            title: 'Turkish Cuisine',
+          },
+          {
+            title: 'Yemeni Cuisine',
+          },
+          {
+            title: 'Levantine Cuisine',
           },
         ],
       },
@@ -128,37 +186,66 @@ const food = {
         title: 'Southeast Asian Cuisine',
         children: [
           {
-            title: 'Bruneian cuisine',
+            title: 'Bruneian Cuisine',
           },
           {
-            title: 'Burmese cuisine',
+            title: 'Burmese Cuisine',
           },
           {
-            title: 'Cambodian cuisine',
+            title: 'Cambodian Cuisine',
           },
           {
             title: 'Cuisine of East Timor',
           },
           {
-            title: 'Filipino cuisine',
+            title: 'Filipino Cuisine',
           },
           {
-            title: 'Indonesian cuisine',
+            title: 'Indonesian Cuisine',
           },
           {
-            title: 'Laotian cuisine',
+            title: 'Laotian Cuisine',
           },
           {
-            title: 'Malaysian cuisine',
+            title: 'Malaysian Cuisine',
           },
           {
-            title: 'Singaporean cuisine',
+            title: 'Singaporean Cuisine',
           },
           {
-            title: 'Thai cuisine',
+            title: 'Thai Cuisine',
           },
           {
-            title: 'Vietnamese cuisine',
+            title: 'Vietnamese Cuisine',
+          },
+        ],
+      },
+      {
+        title: 'South Asian Cuisine',
+        children: [
+          {
+            title: 'Afghan Cuisine',
+          },
+          {
+            title: 'Bangladeshi Cuisine',
+          },
+          {
+            title: 'Bhutanese Cuisine',
+          },
+          {
+            title: 'Indian Cuisine',
+          },
+          {
+            title: 'Maldivian Cuisine',
+          },
+          {
+            title: 'Nepalese Cuisine',
+          },
+          {
+            title: 'Pakistani Cuisine',
+          },
+          {
+            title: 'Sri Lankan Cuisine',
           },
         ],
       },
