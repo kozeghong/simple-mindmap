@@ -253,10 +253,17 @@ const food = {
   },
 }
 
+const thanks = {
+  root: {
+    title: '谢谢大家',
+  },
+}
+
 const presetData = [
   webapp,
   week,
   food,
+  thanks,
 ].map(data => JSON.stringify(data, null, '  '))
 
 export default presetData

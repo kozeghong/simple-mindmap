@@ -28,11 +28,16 @@ function App () {
         <div className={styles.controlPanel}>
 
           <select
-            onChange={(e) => setCode(presetData[parseInt(e.target.value, 10) || 0])}
+            onChange={(e) => {
+              const preset = presetData[parseInt(e.target.value, 10) || 0]
+              setCode(preset)
+              setMindMapData(preset)
+            }
+            }
           >
-            <option value={0}>0</option>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
+            {presetData.map((_, i) => (
+              <option key={i} value={i}>{i}</option>
+            ))}
           </select>
 
           <button onClick={() => setMindMapData(code)}>Apply JSON</button>
