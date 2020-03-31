@@ -15,7 +15,6 @@ export function convertRelativeToAbsolutePosition (node: IPartialNode, parentPos
   }
 
   node.connection = {
-    direction: node.connection?.direction || 'right',
     from: {
       x: parentX + (node.connection?.from.x || 0),
       y: parentY + (node.connection?.from.y || 0),

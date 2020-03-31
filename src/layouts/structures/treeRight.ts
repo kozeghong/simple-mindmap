@@ -1,13 +1,11 @@
 import { structureMap } from './'
 import { IStructure } from './base'
-import { IPartialNode, IDirection } from '../types'
+import { IPartialNode } from '../types'
 
 const marginBottom = 20
 const marginRight = 60
 
 const structureName = 'tree-right'
-
-const direction: IDirection = 'right'
 
 function generateBlockContext (node: IPartialNode) {
   const nodeWidth = node.size?.width || 0
@@ -68,7 +66,6 @@ function generateBlockContext (node: IPartialNode) {
 
     node.children.forEach(child => {
       child.connection = {
-        direction,
         from: {
           x: (node.position?.x || 0) + nodeWidth,
           y: (node.position?.y || 0) + nodeHeight / 2,

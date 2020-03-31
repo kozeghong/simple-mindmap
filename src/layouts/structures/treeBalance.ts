@@ -1,35 +1,11 @@
 import { STRUCTURES, structureMap } from './'
 import { IStructure } from './base'
-import { IPartialNode } from '../types'
+import { IPartialNode, IBlockSize } from '../types'
 
 const marginBottom = 20
 const marginHorizontal = 60
 
 const structureName = 'tree-balance'
-
-function generateChildBlockSize (children: IPartialNode[], structureName: string) {
-  let sumWidth = 0
-  let sumHeight = 0
-
-  children.forEach(child => {
-    structureMap[structureName].generateBlockContext(child)
-
-    const childBlockWidth = child.blockSize?.width || 0
-    const childBlockHeight = child.blockSize?.height || 0
-
-    sumWidth = sumWidth < childBlockWidth ? childBlockWidth : sumWidth
-    sumHeight += childBlockHeight
-  })
-
-  // sumWidth += nodeWidth + marginHorizontal * 2
-
-  sumHeight += marginBottom * (children.length - 1)
-
-  return {
-    width: sumWidth,
-    height: sumHeight,
-  }
-}
 
 function generateBlockContext (node: IPartialNode) {
   const nodeWidth = node.size?.width || 0
@@ -48,24 +24,44 @@ function generateBlockContext (node: IPartialNode) {
   } else if (node.children && node.children.length > 0) {
     const nodeChildren = node.children
 
-    /** find the middle and split the children */
-    const allRightHeight = generateChildBlockSize(nodeChildren, STRUCTURES.TREE_RIGHT).height
-    const avgHeight = allRightHeight / 2
-    let middleIndex = -1
-    let rightSideTreeHeight = 0
+    const rightBlockSize: IBlockSize = { width: 0, height: 0 }
+    const leftBlockSize: IBlockSize = { width: 0, height: 0 }
+    let rightIndex = 0
+    let leftIndex = nodeChildren.length - 1
 
-    while (rightSideTreeHeight < avgHeight) {
-      middleIndex++
-      const childHeight = nodeChildren[middleIndex].blockSize?.height || 0
-      rightSideTreeHeight += childHeight + marginBottom
+    while (rightIndex <= leftIndex) {
+      if (leftBlockSize.height >= rightBlockSize.height) {
+        const child = nodeChildren[rightIndex]
+
+        structureMap[STRUCTURES.TREE_RIGHT].generateBlockContext(child)
+
+        const childBlockWidth = child.blockSize?.width || 0
+        const childBlockHeight = child.blockSize?.height || 0
+
+        rightBlockSize.width = rightBlockSize.width < childBlockWidth ? childBlockWidth : rightBlockSize.width
+        rightBlockSize.height += childBlockHeight
+
+        rightIndex++
+      } else {
+        const child = nodeChildren[leftIndex]
+
+        structureMap[STRUCTURES.TREE_LEFT].generateBlockContext(child)
+
+        const childBlockWidth = child.blockSize?.width || 0
+        const childBlockHeight = child.blockSize?.height || 0
+
+        leftBlockSize.width = leftBlockSize.width < childBlockWidth ? childBlockWidth : leftBlockSize.width
+        leftBlockSize.height += childBlockHeight
+
+        leftIndex--
+      }
     }
-    middleIndex++
 
-    const rightSumBlockSize = generateChildBlockSize(nodeChildren.slice(0, middleIndex), STRUCTURES.TREE_RIGHT)
-    const leftSumBlockSize = generateChildBlockSize(nodeChildren.slice(middleIndex), STRUCTURES.TREE_LEFT)
+    rightBlockSize.height += marginBottom * (rightIndex - 1)
+    leftBlockSize.height += marginBottom * (nodeChildren.length - rightIndex - 1)
 
-    const sumHeight = Math.max(rightSumBlockSize.height, leftSumBlockSize.height, nodeHeight)
-    const sumWidth = nodeWidth + rightSumBlockSize.width + leftSumBlockSize.width + marginHorizontal * 2
+    const sumHeight = Math.max(rightBlockSize.height, leftBlockSize.height, nodeHeight)
+    const sumWidth = nodeWidth + rightBlockSize.width + leftBlockSize.width + marginHorizontal * 2
 
     node.blockSize = {
       width: sumWidth,
@@ -73,15 +69,15 @@ function generateBlockContext (node: IPartialNode) {
     }
 
     node.position = {
-      x: leftSumBlockSize.width + marginHorizontal,
+      x: leftBlockSize.width + marginHorizontal,
       y: (sumHeight - nodeHeight) / 2,
     }
 
     /** layout the right tree nodes */
-    let rightSideTop = (sumHeight - rightSumBlockSize.height) / 2
+    let rightSideTop = (sumHeight - rightBlockSize.height) / 2
     const rightSideLeft = node.position.x + nodeWidth + marginHorizontal
 
-    nodeChildren.slice(0, middleIndex).forEach(child => {
+    nodeChildren.slice(0, rightIndex).forEach(child => {
       const childBlockHeight = child.blockSize?.height || 0
 
       child.blockPosition = {
@@ -92,7 +88,6 @@ function generateBlockContext (node: IPartialNode) {
       rightSideTop += childBlockHeight + marginBottom
 
       child.connection = {
-        direction: 'right',
         from: {
           x: (node.position?.x || 0) + nodeWidth,
           y: (node.position?.y || 0) + nodeHeight / 2,
@@ -105,10 +100,10 @@ function generateBlockContext (node: IPartialNode) {
     })
 
     /** layout the left tree nodes */
-    let leftSideTop = (sumHeight - leftSumBlockSize.height) / 2
-    const leftSideLeft = sumWidth - nodeWidth - marginHorizontal * 2 - rightSumBlockSize.width
+    let leftSideTop = (sumHeight - leftBlockSize.height) / 2
+    const leftSideLeft = sumWidth - nodeWidth - marginHorizontal * 2 - rightBlockSize.width
 
-    nodeChildren.slice(middleIndex).reverse().forEach(child => {
+    nodeChildren.slice(rightIndex).reverse().forEach(child => {
       const childBlockWidth = child.blockSize?.width || 0
       const childBlockHeight = child.blockSize?.height || 0
 
@@ -120,7 +115,6 @@ function generateBlockContext (node: IPartialNode) {
       leftSideTop += childBlockHeight + marginBottom
 
       child.connection = {
-        direction: 'left',
         from: {
           x: (node.position?.x || 0),
           y: (node.position?.y || 0) + nodeHeight / 2,

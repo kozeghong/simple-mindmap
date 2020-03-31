@@ -2,7 +2,7 @@ import React, { FC, useRef, useEffect } from 'react'
 
 import styles from './ConnectionLine.module.css'
 
-import { IConnection, IConnectionType } from '../layouts/types'
+import { IConnection, IConnectionType, IDirection } from '../layouts/types'
 
 interface IProps {
   containerWidth: number
@@ -12,10 +12,12 @@ interface IProps {
 }
 
 const drawPolyline = (ctx: CanvasRenderingContext2D, connection: IConnection) => {
-  const { from, to, direction } = connection
+  const { from, to } = connection
 
   ctx.beginPath()
   ctx.moveTo(from.x, from.y)
+
+  const direction: IDirection = from.x - to.x > 0 ? 'left' : 'right'
 
   if (direction === 'left') {
     ctx.lineTo(from.x - 30, from.y)
@@ -39,10 +41,12 @@ const drawStraight = (ctx: CanvasRenderingContext2D, connection: IConnection) =>
 }
 
 const drawCurve = (ctx: CanvasRenderingContext2D, connection: IConnection) => {
-  const { from, to, direction } = connection
+  const { from, to } = connection
 
   ctx.beginPath()
   ctx.moveTo(from.x, from.y)
+
+  const direction: IDirection = from.x - to.x > 0 ? 'left' : 'right'
 
   if (direction === 'left') {
     ctx.bezierCurveTo(from.x - 30, from.y, to.x + 30, to.y, to.x, to.y)

@@ -33,7 +33,6 @@ export interface IPosition {
 }
 
 export interface IConnection {
-  direction: IDirection
   from: IPoint
   to: IPoint
 }
