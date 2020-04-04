@@ -1,8 +1,8 @@
 # simple-mindmap
 
-A very simple rendering engine for mind map, based on React. Still a work in progress.
+A very simple rendering engine for mind map, based on React. Still a work in progress. [https://www.717.la/simple-mindmap/](https://www.717.la/simple-mindmap/)
 
-<img src="preview.png" alt="Preview">
+<img src="preview.jpg" alt="Preview">
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
